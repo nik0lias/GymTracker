@@ -3,10 +3,10 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Web.Mvc;
+using GymTracker.Web.Models;
 using WebMatrix.WebData;
-using GymTracker.Models;
 
-namespace GymTracker.Filters
+namespace GymTracker.Web.Filters
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public sealed class InitializeSimpleMembershipAttribute : ActionFilterAttribute

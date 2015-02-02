@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace GymTracker.Controllers
+namespace GymTracker.Web.Controllers
 {
     public class HomeController : Controller
     {

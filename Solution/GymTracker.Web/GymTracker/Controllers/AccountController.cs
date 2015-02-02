@@ -6,12 +6,12 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using DotNetOpenAuth.AspNet;
+using GymTracker.Web.Filters;
+using GymTracker.Web.Models;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
-using GymTracker.Filters;
-using GymTracker.Models;
 
-namespace GymTracker.Controllers
+namespace GymTracker.Web.Controllers
 {
     [Authorize]
     [InitializeSimpleMembership]
