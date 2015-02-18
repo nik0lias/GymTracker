@@ -1,0 +1,9 @@
+obj/
+
+bin/
+Debug/
+debug/
+*.dll
+*.pdb
+*.obj
+*.suo

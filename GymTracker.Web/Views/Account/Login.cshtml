@@ -1,0 +1,49 @@
+﻿@using System.Web.Mvc
+@model GymTracker.Web.Models.LoginModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Login</h2>
+
+@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @Id = "loginForm" }))
+{
+    @Html.Hidden("grant_type", "password")
+    @Html.Label("Username")
+    @Html.EditorFor(model => model.Username, new { @Name = "username", @Id = "username" })
+    @Html.Label("Password")
+    @Html.EditorFor(model => model.Password, new { @Name = "username", @Id = "password" })
+    
+    <input type="submit" value="Submit" id="submitForm"/>
+}
+
+<script type="text/javascript">
+    $(document).ready(function ($) {
+    
+        $("#submitForm").click(function (e) {
+            e.preventDefault();
+
+            var loginForm = $('#loginForm').serialize();
+         
+            $.ajaxSetup({
+                async: true
+            });
+
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                contentType: 'application/x-www-form-urlencoded',
+                url: 'http://localhost:54435/token',
+                data: loginForm
+            }).success(function (data) {
+                // use 
+                EmployeePortal().loginUser(data.access_token, data.expires_in);
+            }).error(function (data) {
+                alert('login failed');
+            });
+        });
+    });
+
+</script>
+

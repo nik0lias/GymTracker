@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model GymTracker.Web.Models.EmployeeDetailsModel
+<h2>Details</h2>
+
+<div class="col-md-12">
+    <p>
+        <div class="col-md-4">
+            Name
+        </div>
+        <div class="col-md-4">
+            @Model.Forename
+        </div>
+    </p>
+</div>
+<div class="col-md-12">
+    <div class="col-md-4">
+        Employee Ref
+    </div>
+    <div class="col-md-4">
+        @Model.Middlename
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="col-md-4">
+        Surname
+    </div>
+    <div class="col-md-4">
+        @Model.Surname
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="col-md-4">
+        Employee Reference
+    </div>
+    <div class="col-md-4">
+        @Model.EmployeeReference
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="col-md-4">
+        Home Phone
+    </div>
+    <div class="col-md-4">
+        @Model.HomePhone
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="col-md-4">
+        Mobile Phone
+    </div>
+    <div class="col-md-4">
+        @Model.MobilePhone
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="col-md-4">
+        Date of Birth
+    </div>
+    <div class="col-md-4">
+        @Model.DateOfBirth
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="col-md-4">
+        Employment Start Date
+    </div>
+    <div class="col-md-4">
+        @Model.EmploymentStartDate
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="col-md-4">
+        Employment End Date
+    </div>
+    <div class="col-md-4">
+        @Model.EmploymentEndDate
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="col-md-4">
+        Place of Birth
+    </div>
+    <div class="col-md-4">
+        @Model.PlaceOfBirth
+    </div>
+</div>

@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    $(document).ready(function ($) {
+        
+        var token = EmployeePortal().getToken();
+
+        $.ajax({
+            type: 'GET',
+            url: "http://localhost:54430/Employee/GetAll",
+            callback: 'callbackFunc',
+            success: function (response, status, xhr) {
+                var ct = xhr.getResponseHeader("content-type") || "";
+                if (ct.indexOf('json') > -1) {
+                    $("#employeeDetails").dataTable({
+                        data: response,
+                        columns: [
+                            {
+                                "data": "Id",
+                                "className": "idColumn",
+                                "visible": false
+                            },
+                            { "data": "EmployeeReference" },
+                            { "data": "Forename" },
+                            { "data": "Middlename" },
+                            { "data": "Surname" },
+                            { "data": "EmploymentStartDate" },
+                            {
+                                "className": "td",
+                                "orderable": false,
+                                "data": null,
+                                "mRender": function (data, type, full) {
+                                    return "<a href=\"/Employee/Details/" + full.Id + "\">[Details]</a>";
+                                }
+                            }
+                        ]
+
+                    });
+                }
+            },
+            statusCode: {
+                500: function(response)
+                {
+                    alert("internal error");
+                }
+            },
+            error: function(response){
+
+            },
+            contentType: "application/json"
+        });
+    });
+</script>
+
+<div class="col-md-12">
+    <h1></h1>
+    <br />
+    <div class="col-md-12">
+        <table id="employeeDetails" class="table table-striped" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Employee Reference</th>
+                    <th>Forename</th>
+                    <th>Middle Name</th>
+                    <th>Surname</th>
+                    <th>Employment Start Date
+                    <th></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>

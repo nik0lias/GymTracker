@@ -1,0 +1,849 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebApiRestService.WebApiClient</name>
+    </assembly>
+    <members>
+        <member name="T:WebApiRestService.Authentication.NoAuthentication">
+            <summary>
+            Defines no authentication
+            </summary>
+        </member>
+        <member name="T:WebApiRestService.Authentication.IAuthentication">
+            <summary>
+            Defines the interface for authentication
+            </summary>
+        </member>
+        <member name="M:WebApiRestService.Authentication.IAuthentication.Authenticate">
+            <summary>
+            When implemented, authenticates the client to use server resources
+            </summary>
+        </member>
+        <member name="P:WebApiRestService.Authentication.IAuthentication.Credentials">
+            <summary>
+            Provides the credentials used to request the WebApi
+            </summary>
+        </member>
+        <member name="M:WebApiRestService.Authentication.NoAuthentication.Authenticate">
+            <summary>
+            Not necessary for this kind of authentication
+            </summary>
+        </member>
+        <member name="P:WebApiRestService.Authentication.NoAuthentication.Credentials">
+            <summary>
+            Not used
+            </summary>
+        </member>
+        <member name="T:WebApiRestService.Authentication.WindowsIntegratedAuthentication">
+            <summary>
+            Defines authentication using Negotiate, NTLM, Basic or Kerberos
+            </summary>
+        </member>
+        <member name="M:WebApiRestService.Authentication.WindowsIntegratedAuthentication.#ctor(System.String,System.String)">
+            <summary>
+            Creates the object using just username and password
+            </summary>
+            <remarks>
+            It works with Negotiate, NTLM and Basic authentication types when domain isn't needed
+            </remarks>
+            <param name="username">The windows user name</param>
+            <param name="password">The user password</param>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.Authentication.WindowsIntegratedAuthentication.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Creates the object using username, password and domain
+            </summary>
+            <remarks>
+            It is used when the Api is hosted in a server joined to a domain
+            </remarks>
+            <param name="username">The windows user name</param>
+            <param name="password">The user password</param>
+            <param name="domain">The network domain</param>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.Authentication.WindowsIntegratedAuthentication.#ctor(System.Net.ICredentials)">
+            <summary>
+            Lets the api consumer to provide the credentials
+            </summary>
+            <remarks>
+            Useful when is necessary to provide, for example, a <see cref="!:System.Net.CredentialCache"/>
+            </remarks>
+            <param name="credentials">An object that implements <see cref="T:System.Net.ICredentials"/></param>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.Authentication.WindowsIntegratedAuthentication.Authenticate">
+            <summary>
+            Not necessary for this kind of authentication because windows negotiates the authentication process itself
+            </summary>
+        </member>
+        <member name="P:WebApiRestService.Authentication.WindowsIntegratedAuthentication.Credentials">
+            <summary>
+            Windows Integrated Authentication uses credentials to authenticate the user
+            </summary>
+        </member>
+        <member name="T:WebApiRestService.Authentication.BearerTokenAuthentication">
+            <summary>
+            Defines authentication using bearer tokens
+            </summary>
+        </member>
+        <member name="M:WebApiRestService.Authentication.BearerTokenAuthentication.#ctor(System.String)">
+            <summary>
+            Creates the object using a token
+            </summary>
+            <remarks>
+            No calls will be made to the api to get the token once it is provided by user
+            </remarks>
+            <param name="token">A bearer token</param>
+        </member>
+        <member name="M:WebApiRestService.Authentication.BearerTokenAuthentication.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Creates the object
+            </summary>
+            <param name="username">Username to use when getting the token</param>
+            <param name="password">Password to use when getting the token</param>
+            <param name="tokenUri">The token uri the service must call to get the token</param>
+        </member>
+        <member name="M:WebApiRestService.Authentication.BearerTokenAuthentication.Authenticate">
+            <summary>
+            If the bearer token is already present, just return it. If not, makes the call to <c>TokenUri</c> to get the token
+            </summary>
+            <returns>The <see cref="T:System.Net.Http.Headers.AuthenticationHeaderValue"/> authentication header</returns>
+        </member>
+        <member name="M:WebApiRestService.Authentication.BearerTokenAuthentication.GetParams">
+            <summary>
+            Gets the parameters that should be sent in the content body
+            </summary>
+            <returns>The parameters as an anonymous type object</returns>
+        </member>
+        <member name="P:WebApiRestService.Authentication.BearerTokenAuthentication.Credentials">
+            <summary>
+            Bearer Token Authentication doesn't use the Request's Authentication header to authenticate the user
+            </summary>
+        </member>
+        <member name="P:WebApiRestService.Authentication.BearerTokenAuthentication.HasToken">
+            <summary>
+            Indicates whether token is present
+            </summary>
+        </member>
+        <member name="P:WebApiRestService.Authentication.BearerTokenAuthentication.Token">
+            <summary>
+            The generated token
+            </summary>
+        </member>
+        <member name="P:WebApiRestService.Authentication.BearerTokenAuthentication.TokenUri">
+            <summary>
+            The absolute uri that serves the token
+            </summary>
+        </member>
+        <member name="T:WebApiRestService.WebApiClientExceptionDetails">
+            <summary>
+            Represents details of a exception
+            </summary>
+        </member>
+        <member name="P:WebApiRestService.WebApiClientExceptionDetails.Message">
+            <summary>
+            The exception message
+            </summary>
+        </member>
+        <member name="P:WebApiRestService.WebApiClientExceptionDetails.Reason">
+            <summary>
+            The reason why the http request didn't complete with success
+            </summary>
+        </member>
+        <member name="P:WebApiRestService.WebApiClientExceptionDetails.StackTrace">
+            <summary>
+            The exception stack trace
+            </summary>
+        </member>
+        <member name="P:WebApiRestService.WebApiClientExceptionDetails.ModelState">
+            <summary>
+            The ModelState containing the model validation errors
+            </summary>
+        </member>
+        <member name="P:WebApiRestService.WebApiClientExceptionDetails.ExceptionType">
+            <summary>
+            The type of the exception
+            </summary>
+        </member>
+        <member name="T:WebApiRestService.ContentTypeExtensions">
+            <summary>
+            Defines extension methods for the ContentType enum
+            </summary>
+        </member>
+        <member name="M:WebApiRestService.ContentTypeExtensions.ToMediaFormat(WebApiRestService.ContentType)">
+            <summary>
+            Gets the media format for the content type
+            </summary>
+            <param name="contentType">The content type item</param>
+        </member>
+        <member name="T:WebApiRestService.DictionaryExtensions">
+            <summary>
+            Defines extension methods for the IDictionary type
+            </summary>
+        </member>
+        <member name="M:WebApiRestService.DictionaryExtensions.ToQueryString(System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Converts the dictionary into a queryString type string
+            </summary>
+            <param name="values">The dictionary containing key/value pairs</param>
+            <returns>A string formatted as ?param1=value1&amp;param2=value2</returns>
+        </member>
+        <member name="T:WebApiRestService.WebApiClient`1">
+            <summary>
+            Represents a generic rest client able to make calls to a Web Api 
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.AddCookie(System.String,System.String,System.String,System.String)">
+            <summary>
+            Adds a cookie to the request to be sent to the WebApi
+            </summary>
+            <param name="name">Cookie name</param>
+            <param name="value">Cookie value</param>
+            <param name="path">Cookie path</param>
+            <param name="domain">Cookie domain</param>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.AddCookie(System.Net.CookieCollection)">
+            <summary>
+            Adds a collection of cookies to the request to be sent to the WebApi
+            </summary>
+            <param name="cookies">The cookie collection</param>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.AddCookie(System.Net.Cookie)">
+            <summary>
+            Adds a cookie to the request to be sent to the WebApi
+            </summary>
+            <param name="cookie">The Cookie object</param>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.DeleteAsync(System.Object)">
+            <summary>
+            Calls the Web Api to delete the object of type T
+            </summary>
+            <param name="param">Can be a simple type like int, string, etc or an anonymous type defining many properties</param>
+            <remarks>
+            Requests are sent using HttpVerb DELETE
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.DeleteAsync(System.Object,System.Threading.CancellationToken)">
+            <summary>
+            Calls the Web Api to delete the object of type T
+            </summary>
+            <param name="param">Can be a simple type like int, string, etc or an anonymous type defining many properties</param>
+            <param name="token">The <see cref="T:System.Threading.CancellationToken"/> to be used to cancel the call</param>
+            <remarks>
+            Requests are sent using HttpVerb DELETE
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.DeleteAsync(System.Object,System.String)">
+            <summary>
+            Calls the Web Api to delete the object of type T
+            </summary>
+            <param name="param">Can be a simple type like int, string, etc or an anonymous type defining many properties</param>
+            <param name="action">Explicit define the action that will be called</param>
+            <remarks>
+            Requests are sent using HttpVerb DELETE
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.DeleteAsync(System.Object,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Calls the Web Api to delete the object of type T
+            </summary>
+            <param name="param">Can be a simple type like int, string, etc or an anonymous type defining many properties</param>
+            <param name="action">Explicit define the action that will be called</param>
+            <param name="token">The <see cref="T:System.Threading.CancellationToken"/> to be used to cancel the call</param>
+            <remarks>
+            Requests are sent using HttpVerb DELETE
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.DeleteAsync(System.Object,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Calls the Web Api to delete the object of type T
+            </summary>
+            <param name="param">Can be a simple type like int, string, etc or an anonymous type defining many properties</param>
+            <param name="controller">The controller that will be called</param>
+            <param name="action">Explicit define the action that will be called</param>
+            <param name="token">The <see cref="T:System.Threading.CancellationToken"/> to be used to cancel the call</param>
+            <remarks>
+            Requests are sent using HttpVerb DELETE
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.EditAsync(`0)">
+            <summary>
+            Send an object to the Web Api to be edited
+            </summary>
+            <param name="obj">The object to be updated</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> that will yield the edited object of type T</returns>
+            <remarks>
+            Requests are sent using HttpVerb PUT
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.EditAsync(`0,System.Threading.CancellationToken)">
+            <summary>
+            Send an object to the Web Api to be edited
+            </summary>
+            <param name="obj">The object to be updated</param>
+            <param name="token">The <see cref="T:System.Threading.CancellationToken"/> to be used to cancel the call</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> that will yield the edited object of type T</returns>
+            <remarks>
+            Requests are sent using HttpVerb PUT
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.EditAsync(`0,System.String)">
+            <summary>
+            Send an object to the Web Api to be edited
+            </summary>
+            <param name="obj">The object to be updated</param>
+            <param name="action">Explicit define the action that will be called</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> that will yield the edited object of type T</returns>
+            <remarks>
+            Requests are sent using HttpVerb PUT
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.EditAsync(`0,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Send an object to the Web Api to be edited
+            </summary>
+            <param name="obj">The object to be updated</param>
+            <param name="action">Explicit define the action that will be called</param>
+            <param name="token">The <see cref="T:System.Threading.CancellationToken"/> to be used to cancel the call</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> that will yield the edited object of type T</returns>
+            <remarks>
+            Requests are sent using HttpVerb PUT
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.EditAsync(`0,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Send an object to the Web Api to be edited
+            </summary>
+            <param name="obj">The object to be updated</param>
+            <param name="controller">The controller that will be called</param>
+            <param name="action">Explicit define the action that will be called</param>
+            <param name="token">The <see cref="T:System.Threading.CancellationToken"/> to be used to cancel the call</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> that will yield the edited object of type T</returns>
+            <remarks>
+            Requests are sent using HttpVerb PUT
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.CreateAsync(`0)">
+            <summary>
+            Send an object to the Web Api to be created
+            </summary>
+            <param name="obj">The object to be created</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> that will yield the created object of type T</returns>
+            <remarks>
+            Requests are sent using HttpVerb POST
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.CreateAsync(`0,System.Threading.CancellationToken)">
+            <summary>
+            Send an object to the Web Api to be created
+            </summary>
+            <param name="obj">The object to be created</param>
+            <param name="token">The <see cref="T:System.Threading.CancellationToken"/> to be used to cancel the call</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> that will yield the created object of type T</returns>
+            <remarks>
+            Requests are sent using HttpVerb POST
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.CreateAsync(`0,System.String)">
+            <summary>
+            Send an object to the Web Api to be created
+            </summary>
+            <param name="obj">The object to be created</param>
+            <param name="action">Explicit define the action that will be called</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> that will yield the created object of type T</returns>
+            <remarks>
+            Requests are sent using HttpVerb POST
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.CreateAsync(`0,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Send an object to the Web Api to be created
+            </summary>
+            <param name="obj">The object to be created</param>
+            <param name="action">Explicit define the action that will be called</param>
+            <param name="token">The <see cref="T:System.Threading.CancellationToken"/> to be used to cancel the call</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> that will yield the created object of type T</returns>
+            <remarks>
+            Requests are sent using HttpVerb POST
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.CreateAsync(`0,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Send an object to the Web Api to be created
+            </summary>
+            <param name="obj">The object to be created</param>
+            <param name="controller">The controller that will be called</param>
+            <param name="action">Explicit define the action that will be called</param>
+            <param name="token">The <see cref="T:System.Threading.CancellationToken"/> to be used to cancel the call</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> that will yield the created object of type T</returns>
+            <remarks>
+            Requests are sent using HttpVerb POST
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.GetOneAsync">
+            <summary>
+            Returns a <see cref="T:System.Threading.Tasks.Task"/> that will yield an object of the specified type T from the Web Api
+            </summary>
+            <remarks>
+            Requests are sent using HttpVerb GET
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.GetOneAsync(System.Threading.CancellationToken)">
+            <summary>
+            Returns a <see cref="T:System.Threading.Tasks.Task"/> that will yield an object of the specified type T from the Web Api
+            </summary>
+            <param name="token">The <see cref="T:System.Threading.CancellationToken"/> to be used to cancel the call</param>
+            <remarks>
+            Requests are sent using HttpVerb GET
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.GetOneAsync(System.Object)">
+            <summary>
+            Returns a <see cref="T:System.Threading.Tasks.Task"/> that will yield an object of the specified type T from the Web Api
+            </summary>
+            <param name="param">Can be a simple type like int, string, etc or an anonymous type defining many properties</param>
+            <remarks>
+            Requests are sent using HttpVerb GET
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.GetOneAsync(System.Object,System.Threading.CancellationToken)">
+            <summary>
+            Returns a <see cref="T:System.Threading.Tasks.Task"/> that will yield an object of the specified type T from the Web Api
+            </summary>
+            <param name="param">Can be a simple type like int, string, etc or an anonymous type defining many properties</param>
+            <param name="token">The <see cref="T:System.Threading.CancellationToken"/> to be used to cancel the call</param>
+            <remarks>
+            Requests are sent using HttpVerb GET
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.GetOneAsync(System.Object,System.String)">
+            <summary>
+            Returns a <see cref="T:System.Threading.Tasks.Task"/> that will yield an object of the specified type T from the Web Api
+            </summary>
+            <param name="param">Can be a simple type like int, string, etc or an anonymous type defining many properties</param>
+            <param name="action">Explicit define the action that will be called</param>
+            <remarks>
+            Requests are sent using HttpVerb GET
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.GetOneAsync(System.Object,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Returns a <see cref="T:System.Threading.Tasks.Task"/> that will yield an object of the specified type T from the Web Api
+            </summary>
+            <param name="param">Can be a simple type like int, string, etc or an anonymous type defining many properties</param>
+            <param name="action">Explicit define the action that will be called</param>
+            <param name="token">The <see cref="T:System.Threading.CancellationToken"/> to be used to cancel the call</param>
+            <remarks>
+            Requests are sent using HttpVerb GET
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.GetOneAsync(System.Object,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Returns a <see cref="T:System.Threading.Tasks.Task"/> that will yield an object of the specified type T from the Web Api
+            </summary>
+            <param name="param">Can be a simple type like int, string, etc or an anonymous type defining many properties</param>
+            <param name="controller">The controller that will be called</param>
+            <param name="action">Explicit define the action that will be called</param>
+            <param name="token">The <see cref="T:System.Threading.CancellationToken"/> to be used to cancel the call</param>
+            <remarks>
+            Requests are sent using HttpVerb GET
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.GetManyAsync">
+            <summary>
+            Returns a <see cref="T:System.Threading.Tasks.Task"/> that will yield a list of objects of the specified type T from the Web Api
+            </summary>
+            <remarks>
+            Requests are sent using HttpVerb GET
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.GetManyAsync(System.Threading.CancellationToken)">
+            <summary>
+            Returns a <see cref="T:System.Threading.Tasks.Task"/> that will yield a list of objects of the specified type T from the Web Api
+            </summary>
+            <param name="token">The <see cref="T:System.Threading.CancellationToken"/> to be used to cancel the call</param>
+            <remarks>
+            Requests are sent using HttpVerb GET
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.GetManyAsync(System.Object)">
+            <summary>
+            Returns a <see cref="T:System.Threading.Tasks.Task"/> that will yield a list of objects of the specified type T from the Web Api
+            </summary>
+            <param name="param">Can be a simple type like int, string, etc or an anonymous type defining many properties</param>
+            <remarks>
+            Requests are sent using HttpVerb GET
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.GetManyAsync(System.Object,System.Threading.CancellationToken)">
+            <summary>
+            Returns a <see cref="T:System.Threading.Tasks.Task"/> that will yield a list of objects of the specified type T from the Web Api
+            </summary>
+            <param name="param">Can be a simple type like int, string, etc or an anonymous type defining many properties</param>
+            <param name="token">The <see cref="T:System.Threading.CancellationToken"/> to be used to cancel the call</param>
+            <remarks>
+            Requests are sent using HttpVerb GET
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.GetManyAsync(System.String)">
+            <summary>
+            Returns a <see cref="T:System.Threading.Tasks.Task"/> that will yield a list of objects of the specified type T from the Web Api
+            </summary>
+            <param name="action">Explicit define the action that will be called</param>
+            <remarks>
+            Requests are sent using HttpVerb GET
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.GetManyAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Returns a <see cref="T:System.Threading.Tasks.Task"/> that will yield a list of objects of the specified type T from the Web Api
+            </summary>
+            <param name="action">Explicit define the action that will be called</param>
+            <param name="token">The <see cref="T:System.Threading.CancellationToken"/> to be used to cancel the call</param>
+            <remarks>
+            Requests are sent using HttpVerb GET
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.GetManyAsync(System.Object,System.String)">
+            <summary>
+            Returns a <see cref="T:System.Threading.Tasks.Task"/> that will yield a list of objects of the specified type T from the Web Api
+            </summary>
+            <param name="param">Can be a simple type like int, string, etc or an anonymous type defining many properties</param>
+            <param name="action">Explicit define the action that will be called</param>
+            <remarks>
+            Requests are sent using HttpVerb GET
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.GetManyAsync(System.Object,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Returns a <see cref="T:System.Threading.Tasks.Task"/> that will yield a list of objects of the specified type T from the Web Api
+            </summary>
+            <param name="param">Can be a simple type like int, string, etc or an anonymous type defining many properties</param>
+            <param name="action">Explicit define the action that will be called</param>
+            <param name="token">The <see cref="T:System.Threading.CancellationToken"/> to be used to cancel the call</param>
+            <remarks>
+            Requests are sent using HttpVerb GET
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.GetManyAsync(System.Object,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Returns a <see cref="T:System.Threading.Tasks.Task"/> that will yield a list of objects of the specified type T from the Web Api
+            </summary>
+            <param name="param">Can be a simple type like int, string, etc or an anonymous type defining many properties</param>
+            <param name="controller">The controller that will be called</param>
+            <param name="action">Explicit define the action that will be called</param>
+            <param name="token">The <see cref="T:System.Threading.CancellationToken"/> to be used to cancel the call</param>
+            <remarks>
+            Requests are sent using HttpVerb GET
+            </remarks>
+            <exception cref="T:WebApiRestService.WebApiClientException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="F:WebApiRestService.WebApiClient`1.Client">
+            <summary>
+            The <see cref="T:System.Net.Http.HttpClient"/> used in this instance
+            </summary>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:WebApiRestService.WebApiClient`1"/> using default options
+            </summary>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.#ctor(WebApiRestService.WebApiClientOptions)">
+            <summary>
+            Initializes a new instance of <see cref="T:WebApiRestService.WebApiClient`1"/> using custom options
+            </summary>
+            <param name="options">Custom options to be used</param>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.#ctor(WebApiRestService.WebApiClientOptions,System.Net.Http.HttpClientHandler)">
+            <summary>
+            Initializes a new instance of <see cref="T:WebApiRestService.WebApiClient`1"/> using custom options
+            </summary>
+            <param name="options">Custom options to be used</param>
+            <param name="handler">The desired handler</param>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.GenerateUri(System.String,System.String,System.Object)">
+            <summary>
+            Generates a Uri string based on the parameters provided
+            </summary>
+            <remarks>
+            The generated Uri can be formatted in one of the following types:
+            <list type="bullet">
+            <item><description>{controller}</description></item>
+            <item><description>{controller}/{param}</description></item>
+            <item><description>{controller}?{param.key1}={param.value1}&amp;{param.key2}={param.value2}</description></item>
+            <item><description>{controller}/{action}</description></item>
+            <item><description>{controller}/{action}/{param}</description></item>
+            <item><description>{controller}/{action}?{param.key1}={param.value1}&amp;{param.key2}={param.value2}</description></item>
+            </list>
+            </remarks>
+            <param name="controller">The controller that will be called. Required.</param>
+            <param name="action">The action that will be called. Optional.</param>
+            <param name="param">Can be a simple type like int, string, etc or an anonymous type defining many properties. Optional.</param>
+            <returns>The complete Uri that will be used to call the Web Api</returns>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.Authenticate">
+            <summary>
+            Gets the Authorization header
+            </summary>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.GetException(System.Net.Http.HttpResponseMessage)">
+            <summary>
+            Encapsulates the error response into a WebApiClientException
+            </summary>
+            <param name="response">The response message containing the error</param>
+        </member>
+        <member name="M:WebApiRestService.WebApiClient`1.Dispose">
+            <summary>
+            Disposes resources
+            </summary>
+        </member>
+        <member name="P:WebApiRestService.WebApiClient`1.Headers">
+            <summary>
+            Gets the HttpClient headers
+            </summary>
+        </member>
+        <member name="P:WebApiRestService.WebApiClient`1.Options">
+            <summary>
+            Gets the <see cref="T:WebApiRestService.WebApiClientOptions"/> associated with this client
+            </summary>
+            <remarks>
+            Just for reference purpose because any change made to this object won't have any effect because it is used
+            only to create the client instance with default values
+            </remarks>
+        </member>
+        <member name="P:WebApiRestService.WebApiClient`1.Handler">
+            <summary>
+            Gets the <see cref="T:System.Net.Http.HttpClientHandler"/> associated with this client
+            </summary>
+            <remarks>
+            Just for reference purpose because any change made to this handler won't have any effect once it is used 
+            in the <see cref="T:System.Net.Http.HttpClient"/> constructor and cannot be changed
+            </remarks>
+        </member>
+        <member name="T:WebApiRestService.ObjectExtensions">
+            <summary>
+            Defines extension methods for the Object type
+            </summary>
+        </member>
+        <member name="M:WebApiRestService.ObjectExtensions.ParseAnonymousObject(System.Object)">
+            <summary>
+            Converts an anonymous type into a dictionary
+            </summary>
+            <param name="obj">The object to be transformed</param>
+            <returns>A dictionary of KeyValuePairs</returns>
+            <example>
+            <code>
+            var x = new { id = 1, name = "foo", lastName = "bar" };
+            
+            IDictionary{string, object} values = x.ParseAnonymousObject();
+            
+            foreach (var item in values)
+            {
+            	Console.WriteLine(string.Format("{0}={1}", item.Key, item.Value));
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:WebApiRestService.ContentType">
+            <summary>
+            Defines the content type for the http request and response 
+            </summary>
+        </member>
+        <member name="F:WebApiRestService.ContentType.Json">
+            <summary>
+            Uses the Json content type
+            </summary>
+        </member>
+        <member name="F:WebApiRestService.ContentType.Xml">
+            <summary>
+            Uses the Xml content type
+            </summary>
+        </member>
+        <member name="T:WebApiRestService.WebApiClientException">
+            <summary>
+            Represents an exception thrown by WebApiClient
+            </summary>
+        </member>
+        <member name="F:WebApiRestService.WebApiClientException.StatusCode">
+            <summary>
+            Error code
+            </summary>
+        </member>
+        <member name="F:WebApiRestService.WebApiClientException.Details">
+            <summary>
+            Complete exception details
+            </summary>
+        </member>
+        <member name="M:WebApiRestService.WebApiClientException.#ctor(System.Net.HttpStatusCode)">
+            <summary>
+            Creates a new object of WebApiClientException
+            </summary>
+            <param name="statusCode">The error code</param>
+        </member>
+        <member name="M:WebApiRestService.WebApiClientException.#ctor(System.Net.HttpStatusCode,System.String)">
+            <summary>
+            Creates a new object of WebApiClientException
+            </summary>
+            <param name="statusCode">The error code</param>
+            <param name="message">The message</param>
+        </member>
+        <member name="M:WebApiRestService.WebApiClientException.#ctor(System.Net.HttpStatusCode,System.Exception)">
+            <summary>
+            Creates a new object of WebApiClientException
+            </summary>
+            <param name="statusCode">The error code</param>
+            <param name="e">The inner exception</param>
+        </member>
+        <member name="M:WebApiRestService.WebApiClientException.#ctor(System.Net.HttpStatusCode,WebApiRestService.WebApiClientExceptionDetails)">
+            <summary>
+            Creates a new object of WebApiClientException
+            </summary>
+            <param name="statusCode">The error code</param>
+            <param name="details">The object with further exception details</param>
+        </member>
+        <member name="T:WebApiRestService.WebApiClientOptions">
+            <summary>
+            Represents the options to initiate a <see cref="T:WebApiRestService.WebApiClient`1"/> object
+            </summary>
+        </member>
+        <member name="M:WebApiRestService.WebApiClientOptions.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:WebApiRestService.WebApiClientOptions.#ctor(System.String,System.String)">
+            <summary>
+            Initializes the object that represents the options for the <see cref="T:WebApiRestService.WebApiClient`1"/> service
+            </summary>
+            <param name="baseAddress">The base address that will be used in request calls</param>
+            <param name="controller">The controller name that will be called from the client</param>
+        </member>
+        <member name="P:WebApiRestService.WebApiClientOptions.Authentication">
+            <summary>
+            An object representing the desired type of authentication
+            </summary>
+        </member>
+        <member name="P:WebApiRestService.WebApiClientOptions.Controller">
+            <summary>
+            Gets or sets the controller name that will be called from the client
+            </summary>
+        </member>
+        <member name="P:WebApiRestService.WebApiClientOptions.ContentType">
+            <summary>
+            Gets the content type used in request and response calls
+            </summary>
+            <remarks>
+            If not defined, uses the default value <see cref="F:WebApiRestService.ContentType.Json"/>
+            </remarks>
+            <seealso cref="T:WebApiRestService.ContentType"/>
+        </member>
+        <member name="P:WebApiRestService.WebApiClientOptions.Formatter">
+            <summary>
+            Gets the <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter"/> associated to this instance
+            </summary>
+        </member>
+        <member name="P:WebApiRestService.WebApiClientOptions.BaseAddress">
+            <summary>
+            Gets or sets the base address that will be used in request calls
+            </summary>
+            <remarks>
+            If not defined, uses the default value http://localhost/
+            </remarks>
+        </member>
+        <member name="P:WebApiRestService.WebApiClientOptions.Timeout">
+            <summary>
+            Gets or sets the default timeout limit for all client calls
+            </summary>
+            <remarks>
+            If not defined, uses the default value 30000
+            </remarks>
+        </member>
+        <member name="T:WebApiRestService.TypeExtensions">
+            <summary>
+            Defines extension methods for the Type type
+            </summary>
+        </member>
+        <member name="M:WebApiRestService.TypeExtensions.IsAnonymousType(System.Type)">
+            <summary>
+            Verifies whether it is an anonymous type object
+            </summary>
+            <param name="type">The object type to be tested</param>
+            <returns>true if it is an anonymous type object</returns>
+            <example>
+            <code>
+            var x = new { id = 1, name = "foo", lastName = "bar" };
+            
+            bool result = x.GetType().IsAnonymousType(); //true
+            </code>
+            </example>
+        </member>
+    </members>
+</doc>
