@@ -5,11 +5,11 @@ using GymTracker.Web.Models;
 
 namespace GymTracker.Web.Controllers
 {
-    public class AccountController : Controller
+    public class UserController : Controller
     {
         public WebApiFactory<LoggedInUserDTO> _loginDataFactory { get; set; }
 
-        public AccountController()
+        public UserController()
         {
             _loginDataFactory = new WebApiFactory<LoggedInUserDTO>("http://localhost:54435/api/", "Account", WebApiRestService.ContentType.Xml);
         }
