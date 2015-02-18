@@ -1,0 +1,14 @@
+D:\Development\GymTracker\GymTracker.Core\obj\Debug\GymTracker.Core.csprojResolveAssemblyReference.cache
+D:\Development\GymTracker\GymTracker.Core\bin\Debug\GymTracker.Core.dll.config
+D:\Development\GymTracker\GymTracker.Core\bin\Debug\GymTracker.Core.dll
+D:\Development\GymTracker\GymTracker.Core\bin\Debug\GymTracker.Core.pdb
+D:\Development\GymTracker\GymTracker.Core\bin\Debug\EntityFramework.dll
+D:\Development\GymTracker\GymTracker.Core\bin\Debug\EntityFramework.SqlServer.dll
+D:\Development\GymTracker\GymTracker.Core\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+D:\Development\GymTracker\GymTracker.Core\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\Development\GymTracker\GymTracker.Core\bin\Debug\EntityFramework.xml
+D:\Development\GymTracker\GymTracker.Core\bin\Debug\EntityFramework.SqlServer.xml
+D:\Development\GymTracker\GymTracker.Core\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+D:\Development\GymTracker\GymTracker.Core\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\Development\GymTracker\GymTracker.Core\obj\Debug\GymTracker.Core.dll
+D:\Development\GymTracker\GymTracker.Core\obj\Debug\GymTracker.Core.pdb
