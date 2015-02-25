@@ -3,7 +3,7 @@ using GymTracker.Core.Interfaces;
 
 namespace GymTracker.Core.Entities
 {
-    public class Employee : IEmployee
+    public class Employee : IUser
     {
         public int Id { get; set; }
         public string Email { get; set; }

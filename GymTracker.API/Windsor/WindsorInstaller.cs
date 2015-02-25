@@ -15,7 +15,7 @@ namespace GymTracker.API.Windsor
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             // Register working dependencies
-            container.Register(Component.For<IEmployeeRepository>()
+            container.Register(Component.For<IUserRepository>()
                 .ImplementedBy<EmployeeRepository>().LifestyleTransient());
 
             container.Register(Component.For<IAuthRepository>()
@@ -25,7 +25,7 @@ namespace GymTracker.API.Windsor
               .ImplementedBy<EntityFrameworkUnitOfWork>().LifestyleTransient());
 
             // Register all the WebApi controllers within this assembly
-            container.Register(Classes.FromAssembly(typeof(EmployeeController).Assembly)
+            container.Register(Classes.FromAssembly(typeof(UserController).Assembly)
                                       .BasedOn<ApiController>()
                                       .LifestyleScoped());
 

@@ -4,25 +4,27 @@ using System.Web.Mvc;
 using AutoMapper;
 using GymTracker.Core.DTO;
 using GymTracker.Web.Attributes;
-using GymTracker.Web.Factories;
+using GymTracker.Web.Factories.Interfaces.Base;
 using GymTracker.Web.Models;
-using GymTracker.Web.Factories.Interfaces;
+using GymTracker.Web.Models.Signup;
 
 namespace GymTracker.Web.Controllers
 {
     [CustomCookieAuthorize]
     public class UserController : Controller
     {
-        private IWebApiFactory<EmployeeDTO> _employeeDataFactory;
+        private readonly IWebApiFactory<UserDto> _accountApi;
 
-        public UserController(IWebApiFactory<EmployeeDTO> apiFactory)
+        public UserController(IWebApiFactory<UserDto> client)
         {
-            _employeeDataFactory = apiFactory;
-            //_employeeDataFactory = new WebApiFactory<EmployeeDTO>("http://localhost:54435/api/", "Employee", WebApiRestService.ContentType.Xml);
+            _accountApi = client;
         }
 
-        private string GetToken()
+        public string GetToken()
         {
+            //todo: mock this properly so we dont have to check for request
+            if (Request == null) return string.Empty;
+
             return Request.Cookies["bearerToken"] != null ? Request.Cookies["bearerToken"].Value : null;
         }
 
@@ -35,12 +37,8 @@ namespace GymTracker.Web.Controllers
         {
             try
             {
-                using (var employeeApiFactory = _employeeDataFactory)
-                {
-                    employeeApiFactory.SetAuth(GetToken());
-                    var model = await employeeApiFactory.GetAll();
-                    return Json(model, JsonRequestBehavior.AllowGet);
-                }
+                var model = await _accountApi.GetAll();
+                return Json(model, JsonRequestBehavior.AllowGet);
             }
             catch (HttpResponseException ex)
             {
@@ -52,16 +50,12 @@ namespace GymTracker.Web.Controllers
         {
             try
             {
-                using (var employeeApiFactory = _employeeDataFactory)
-                {
-                    employeeApiFactory.SetAuth(GetToken());
-                    var model = await employeeApiFactory.GetOne(id);
+                var model = await _accountApi.GetOne(id);
 
-                    Mapper.CreateMap<EmployeeDTO, EmployeeDetailsModel>();
-                    var objMapped = Mapper.Map<EmployeeDTO, EmployeeDetailsModel>(model);
+                Mapper.CreateMap<UserDto, UserDetailsModel>();
+                var objMapped = Mapper.Map<UserDto, UserDetailsModel>(model);
 
-                    return View("Details", objMapped);
-                }
+                return View("Details", objMapped);
             }
             catch (HttpResponseException ex)
             {

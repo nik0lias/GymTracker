@@ -6,7 +6,7 @@ using GymTracker.Core.Interfaces;
 namespace GymTracker.Data.Entities.Employee
 {
     [Table("HR.Employee")]
-    public partial class Employee : IEmployee
+    public partial class Employee : IUser
     {
         public int Id { get; set; }
 

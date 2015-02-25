@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace GymTracker.Core.Interfaces
 {
-    public interface IEmployee
+    public interface IUser
     {
         [DataMember]
         int Id { get; set; }

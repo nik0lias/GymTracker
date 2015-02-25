@@ -8,6 +8,6 @@ namespace GymTracker.Core.Interfaces.Base
     {
         I GetOne(int id);
         IEnumerable<I> GetAll();
-        IEnumerable<I> Query(Expression<Func<IEmployee, bool>> criteria);
+        IEnumerable<I> Query(Expression<Func<IUser, bool>> criteria);
     }
 }

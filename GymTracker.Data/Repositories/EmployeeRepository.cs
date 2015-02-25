@@ -8,7 +8,7 @@ using GymTracker.Data.Entities.Employee;
 
 namespace GymTracker.Data.Repositories
 {
-    public class EmployeeRepository : IEmployeeRepository
+    public class EmployeeRepository : IUserRepository
     {
         EntityFrameworkUnitOfWork _unitOfWork;
 
@@ -24,17 +24,17 @@ namespace GymTracker.Data.Repositories
             _unitOfWork = entityFrameworkUnitOfWork;
         }
 
-        public IEnumerable<IEmployee> Query(Expression<Func<IEmployee, bool>> criteria)
+        public IEnumerable<IUser> Query(Expression<Func<IUser, bool>> criteria)
         {
             return _unitOfWork.GetDbSet<Employee>().Where(criteria);
         }
 
-        public IEmployee GetOne(int id)
+        public IUser GetOne(int id)
         {
             return _unitOfWork.GetDbSet<Employee>().FirstOrDefault(x => x.Id == id);
         }
 
-        public IEnumerable<IEmployee> GetAll()
+        public IEnumerable<IUser> GetAll()
         {
             return _unitOfWork.GetDbSet<Employee>();
         }

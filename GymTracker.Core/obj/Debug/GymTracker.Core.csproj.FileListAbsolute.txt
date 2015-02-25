@@ -12,3 +12,16 @@ D:\Development\GymTracker\GymTracker.Core\bin\Debug\Microsoft.AspNet.Identity.Co
 D:\Development\GymTracker\GymTracker.Core\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
 D:\Development\GymTracker\GymTracker.Core\obj\Debug\GymTracker.Core.dll
 D:\Development\GymTracker\GymTracker.Core\obj\Debug\GymTracker.Core.pdb
+C:\Users\Nick.Naylor\Desktop\GitHub\GymTracker.Core\bin\Debug\GymTracker.Core.dll.config
+C:\Users\Nick.Naylor\Desktop\GitHub\GymTracker.Core\bin\Debug\GymTracker.Core.dll
+C:\Users\Nick.Naylor\Desktop\GitHub\GymTracker.Core\bin\Debug\GymTracker.Core.pdb
+C:\Users\Nick.Naylor\Desktop\GitHub\GymTracker.Core\bin\Debug\EntityFramework.dll
+C:\Users\Nick.Naylor\Desktop\GitHub\GymTracker.Core\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Nick.Naylor\Desktop\GitHub\GymTracker.Core\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Nick.Naylor\Desktop\GitHub\GymTracker.Core\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Nick.Naylor\Desktop\GitHub\GymTracker.Core\bin\Debug\EntityFramework.xml
+C:\Users\Nick.Naylor\Desktop\GitHub\GymTracker.Core\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Nick.Naylor\Desktop\GitHub\GymTracker.Core\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Nick.Naylor\Desktop\GitHub\GymTracker.Core\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Nick.Naylor\Desktop\GitHub\GymTracker.Core\obj\Debug\GymTracker.Core.dll
+C:\Users\Nick.Naylor\Desktop\GitHub\GymTracker.Core\obj\Debug\GymTracker.Core.pdb

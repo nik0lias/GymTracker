@@ -200,7 +200,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Exception\ExceptionHandlingAttribute.cs" />
     <Compile Include="Plumbing\CorsPolicyAttribue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
