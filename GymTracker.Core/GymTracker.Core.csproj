@@ -58,7 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTO\CreateUserDto.cs" />
-    <Compile Include="DTO\LoggedInUserDTO.cs" />
     <Compile Include="Entities\Employee.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="Entities\User.cs" />

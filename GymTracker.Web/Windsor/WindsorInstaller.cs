@@ -17,8 +17,8 @@ namespace GymTracker.Web.Windsor
                              .BasedOn<IController>()
                              .LifestyleTransient());
 
-            container.Register(Component.For<IWebApiFactory<LoggedInUserDTO>>()
-                .ImplementedBy<AccountRestClient>().LifestyleTransient());
+            container.Register(Component.For<IWebApiFactory<UserDto>>()
+                .ImplementedBy<AdminRestClient>().LifestyleTransient());
 
             container.Register(Component.For<IWebApiFactory<UserDto>>()
                .ImplementedBy<UserRestClient>().LifestyleTransient());

@@ -59,3 +59,4 @@ C:\Users\Nick.Naylor\Desktop\GitHub\GymTracker.Web.Tests\bin\Debug\Castle.Windso
 C:\Users\Nick.Naylor\Desktop\GitHub\GymTracker.Web.Tests\bin\Debug\Castle.Core.dll
 C:\Users\Nick.Naylor\Desktop\GitHub\GymTracker.Web.Tests\bin\Debug\Castle.Windsor.xml
 C:\Users\Nick.Naylor\Desktop\GitHub\GymTracker.Web.Tests\bin\Debug\Castle.Core.xml
+C:\Users\Nick.Naylor\Desktop\GitHub\GymTracker.Web.Tests\bin\Debug\AutoMapper.Net4.pdb

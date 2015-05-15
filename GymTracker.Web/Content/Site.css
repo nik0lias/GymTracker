@@ -59,3 +59,23 @@ textarea {
 .validation-summary-valid {
     display: none;
 }
+
+
+/* GymTracker new */
+.site-header {
+    color: #000;
+    background-color: #9AB4CB; /* Old browsers */
+    border-bottom: 3px solid #396A92;
+    padding: 5px;
+}
+
+.site-banner {
+    height: 250px;
+    border-bottom: 1px solid #396A92;
+    background-color: #FDFDFD;
+}
+
+.site-content {
+    padding: 10px;
+}
+

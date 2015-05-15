@@ -10,18 +10,18 @@ namespace GymTracker.API.Controllers
 {
     [CorsPolicyAttribue]
     [Authorize]
-    [RoutePrefix("api/User")]
-    public class UserController : ApiController
+    [RoutePrefix("api/admin")]
+    public class AdminController : ApiController
     {
         public IUserRepository _repo { get; set; }
     
-        public UserController(IUserRepository repo)
+        public AdminController(IUserRepository repo)
         {
             _repo = repo;
         }
 
         [HttpGet]
-        [ActionName("GetAll")]
+        [Route("users/getall")]
         public IEnumerable<UserDto> GetAllUsers()
         {
             Mapper.CreateMap<IUser, UserDto>();
@@ -30,27 +30,12 @@ namespace GymTracker.API.Controllers
         }
 
         [HttpGet]
-        [ActionName("Get")]
+        [Route("users/get")]
         public UserDto GetUsers(int id)
         {
             Mapper.CreateMap<IUser, UserDto>();
             var employee = _repo.Query(x => x.Id == id).FirstOrDefault();
             return Mapper.Map<IUser, UserDto>(employee);
-        }
-       
-        public void Post([FromBody]string value)
-        {
-
-        }
-
-        public void Put(int id, [FromBody]string value)
-        {
-
-        }
-
-        public void Delete(int id)
-        {
-
         }
     }
 }

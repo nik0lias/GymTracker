@@ -36,6 +36,8 @@ namespace GymTracker.API
             // we can change this to specific IP's if needed
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(GlobalConfiguration.Configuration);
+
+            //Swashbuckle.Application.Init(GlobalConfiguration.Configuration);
             
         }
 

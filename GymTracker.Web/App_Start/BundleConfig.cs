@@ -35,7 +35,8 @@ namespace GymTracker.Web
                 .Include("~/Content/bootstrap-theme.css")
                 .Include("~/Content/bootstrap.min.css"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/Site.css",
+                "~/Content/Plugins/dataTables.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",
@@ -53,10 +54,6 @@ namespace GymTracker.Web
 
             bundles.Add(new StyleBundle("~/Content/bootstrap-theme").Include(
                         "~/Content/bootstrap-theme.css"));
-
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                        "~/Content/Plugins/dataTables.css"));
-
         }
     }
 }

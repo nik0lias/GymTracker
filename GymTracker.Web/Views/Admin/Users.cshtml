@@ -1,0 +1,45 @@
+﻿@model List<GymTracker.Web.Models.User.UserDetailsModel>
+
+    @{
+        ViewBag.Title = "Users";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    
+@{ var m = Model.ToArray(); }    
+
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <h2>All Users</h2>
+            <div class="panel">
+                <div class="panel-body">
+                    
+                    <table class="table table-striped table-hover">
+                        <thead class="table">
+                            <tr>
+                                <th>Id</th>  
+                                <th>Name</th>
+                                <th>Surname</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.Count(); i++)
+                            {
+                                <tr>
+                                    <td> @Html.Label(m[i].Id.ToString()) </td>
+                                    <td> @Html.Label(m[i].Forename) </td>
+                                    <td> @Html.Label(m[i].Surname) </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                  
+                </div>
+            </div>
+        </div>    
+    </div>
+</div>
+
+

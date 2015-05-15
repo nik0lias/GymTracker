@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GymTracker.Web.Models
+namespace GymTracker.Web.Models.User
 {
     public class UserDetailsModel
     {

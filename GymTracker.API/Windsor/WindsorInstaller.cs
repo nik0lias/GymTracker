@@ -25,7 +25,7 @@ namespace GymTracker.API.Windsor
               .ImplementedBy<EntityFrameworkUnitOfWork>().LifestyleTransient());
 
             // Register all the WebApi controllers within this assembly
-            container.Register(Classes.FromAssembly(typeof(UserController).Assembly)
+            container.Register(Classes.FromAssembly(typeof(AdminController).Assembly)
                                       .BasedOn<ApiController>()
                                       .LifestyleScoped());
 

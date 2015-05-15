@@ -10,7 +10,7 @@
 
         $.ajax({
             type: 'GET',
-            url: "http://localhost:54430/Employee/GetAll",
+            url: "http://localhost:54430/User/GetAll",
             callback: 'callbackFunc',
             success: function (response, status, xhr) {
                 var ct = xhr.getResponseHeader("content-type") || "";

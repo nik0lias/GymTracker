@@ -9,18 +9,24 @@
     @Styles.Render("~/Content/Boostrap")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/dataTable")
     @Scripts.Render("~/bundles/websiteGlobal")
     @RenderSection("scripts", required: false)
     
-    <script>
-        $(document).ready(function () {
-            //EmployeePortal.init();
-        });
-    </script>
-
 </head>
     <body>
-           @RenderBody()
+        <div class="site-header col-md-12">
+            <div class="row col-md-12">
+                <div class=" col-md-9">
+                    Tracker
+                </div>
+                <div class="col-md-3">
+                    <a href="#" class="btn btn-sm btn-primary">Log In</a>
+                    <a href="#" class="btn btn-sm btn-success">Register</a>
+                </div>
+            </div>
+        </div>
+        <div class="site-content">
+            @RenderBody()    
+        </div>
     </body>
 </html>
